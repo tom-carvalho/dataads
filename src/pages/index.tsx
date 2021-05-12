@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/button"
 import { FormLabel } from "@chakra-ui/form-control"
 import { Image } from "@chakra-ui/image"
 import { Input } from "@chakra-ui/input"
-import { Flex, Grid, Link, Text, Box, } from "@chakra-ui/layout"
+import { Flex, Link, Text, Box, } from "@chakra-ui/layout"
 
 const IndexPage = () => (
   <Flex
