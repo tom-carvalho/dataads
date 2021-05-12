@@ -22,27 +22,29 @@ export const Search = () => {
                 </Flex>
             </Flex>
 
+            <Flex mt="-112px" padding="24px" w="100%" justifyContent="center">
+                <SimpleGrid w="70%" bg="white" borderRadius="lg" padding="32px" boxShadow="lg" columns={{ xl: 2, lg: 2, md: 2, sm: 1, base: 1 }} gap="32px">
+                    <Flex flexDirection="column">
+                        <FormLabel>Anunciante</FormLabel>
+                        <Input placeholder="Pesquise por um anunciante" size="lg" type="Text" mb="16px" focusBorderColor="yellow.400" />
+                    </Flex>
+                    <Flex flexDirection="column">
+                        <FormLabel>Agência</FormLabel>
+                        <Input placeholder="Pesquise por uma agência" size="lg" type="Text" mb="16px" focusBorderColor="yellow.400" />
+                    </Flex>
+                    <Flex flexDirection="column">
+                        <FormLabel>Marca</FormLabel>
+                        <Input placeholder="Pesquise por uma marca" size="lg" type="Text" mb="16px" focusBorderColor="yellow.400" />
+                    </Flex>
+                    <Flex flexDirection="column">
+                        <FormLabel>Nome</FormLabel>
+                        <Input placeholder="Pesquise por um nome" size="lg" type="Text" mb="16px" focusBorderColor="yellow.400" />
+                    </Flex>
+                </SimpleGrid>
 
-            <SimpleGrid w="70%" bg="white" borderRadius="lg" mt="-104px" padding="32px" boxShadow="lg" columns={{ xl: 2, lg: 2, md: 2, sm: 1, base: 1 }} gap="32px">
-                <Flex flexDirection="column">
-                    <FormLabel>Anunciante</FormLabel>
-                    <Input placeholder="Pesquise por um anunciante" size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" />
-                </Flex>
-                <Flex flexDirection="column">
-                    <FormLabel>Agência</FormLabel>
-                    <Input placeholder="Pesquise por uma agência" size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" />
-                </Flex>
-                <Flex flexDirection="column">
-                    <FormLabel>Marca</FormLabel>
-                    <Input placeholder="Pesquise por uma marca" size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" />
-                </Flex>
-                <Flex flexDirection="column">
-                    <FormLabel>Nome</FormLabel>
-                    <Input placeholder="Pesquise por um nome" size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" />
-                </Flex>
-            </SimpleGrid>
+            </Flex>
 
-            <Flex justifyContent="flex-end" w="70%" mt="-16px">
+            <Flex justifyContent="flex-end" w="70%" mt="-48px">
                 <Button marginRight="32px" backgroundColor="gray.700"
                     color="yellow.400"
                     size="lg"
