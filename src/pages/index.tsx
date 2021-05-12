@@ -5,16 +5,16 @@ import { Input } from "@chakra-ui/input"
 import { Flex, Grid, Link, Text, Box, } from "@chakra-ui/layout"
 
 const IndexPage = () => (
-  <Grid
+  <Flex
     as="main"
     height="100vh"
     width="100vw"
     justifyContent="center"
     alignItems="center"
-    bg="gray.700"
+    bg={{ xl: "gray.700", lg: "gray.700", md: "gray.700", sm: "gray.50", base: "gray.50" }}
   >
 
-    <Box bg="gray.50" borderRadius="lg" display="flex" m={[12]} w={[300, 350, 400, 500]}>
+    <Box bg="gray.50" borderRadius="lg" w={{ xl: "500px", lg: "500px", md: "400px", sm: "100%", base: "100%" }}>
       <Flex alignItems="center" justifyContent="center" flexDirection="column">
         <Flex flexDirection="column" padding="20px" alignItems="center" justifyContent="center">
           <Image src="/images/Logo.png" w="230px" alt="Logo DataAds" mt="24px" />
@@ -53,7 +53,7 @@ const IndexPage = () => (
         </Flex>
       </Flex>
     </Box>
-  </Grid >
+  </Flex >
 )
 
 export default IndexPage
