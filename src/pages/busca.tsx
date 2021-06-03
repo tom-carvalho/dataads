@@ -38,7 +38,7 @@ const SearchPage = () => {
     const [agency, setAgency] = useState("")
     const [brand, setBrand] = useState("")
     const [name, setName] = useState("")
-    const [ searchResult, setSearchResult ] = useState<CardData[] | []>([])
+    const [ searchResult, setSearchResult ] = useState<CardData[]>([])
 
     const toast = useToast()
 
@@ -213,7 +213,7 @@ const SearchPage = () => {
                     renderEmptyContent()
                 ):( 
                     <Flex>
-                        {searchResult.map((result: CardData) => (
+                        {searchResult.map((result) => (
                             <Card data={result} />
                         ))}
                     </Flex>
