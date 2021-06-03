@@ -12,7 +12,7 @@ const IndexPage = () => {
     <Flex
       as="main"
       height="100vh"
-      width="100vw"
+      width="100%"
       justifyContent="center"
       alignItems="center"
       bg={{ xl: "gray.700", lg: "gray.700", md: "gray.700", sm: "gray.50", base: "gray.50" }}
