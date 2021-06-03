@@ -8,6 +8,7 @@ import { useToast } from "@chakra-ui/toast"
 import { Fragment, useCallback, useState } from "react"
 import { Card } from "../components/card"
 import { api } from "../services/api"
+import Head from 'next/head'
 
 
 interface CardData {
@@ -209,6 +210,9 @@ const SearchPage = () => {
     const renderData = () => {
         return (
            <Fragment>
+               <Head>
+                <title>DataAds | Busca</title>
+               </Head>
                 {!searchResult.length ? (
                     renderEmptyContent()
                 ):( 
