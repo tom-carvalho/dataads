@@ -5,10 +5,11 @@ import { Image } from "@chakra-ui/image"
 import { Input } from "@chakra-ui/input"
 import { Flex, SimpleGrid, Text } from "@chakra-ui/layout"
 import { useToast } from "@chakra-ui/toast"
-import { Fragment, useCallback, useState } from "react"
+import { Fragment, useCallback, useEffect, useState } from "react"
 import { Card } from "../components/card"
 import { api } from "../services/api"
 import Head from 'next/head'
+import axios from "axios"
 
 
 interface CardData {
@@ -34,8 +35,9 @@ interface CardData {
 
 
 const SearchPage = () => {
+    const [emptyResult, setEmptyResult] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [advertiser, setAdvertiser] = useState("")
+    const [company, setCompany] = useState("")
     const [agency, setAgency] = useState("")
     const [brand, setBrand] = useState("")
     const [name, setName] = useState("")
@@ -44,18 +46,15 @@ const SearchPage = () => {
     const toast = useToast()
 
 
-    const handleClearForm = () => {
-        setName("")
-        setAdvertiser("")
-        setAgency("")
-        setBrand("")
-    }
+    useEffect(() => {
+        searchInitialData()
+    }, [])
 
-    const handleSearch = useCallback(async () => {
+    const searchInitialData = async () => {
         try {
             setLoading(true)
-            const response = await api.get(
-                `/search?ANUNCIANTE=${advertiser}&AGENCIA=${agency}&MARCA=${brand}&NOME=${name}`
+            const response = await axios.get(
+                `/api/search`,
             )
 
             const formatedResponse: CardData[] = response.data.map((i: any) => ({
@@ -79,6 +78,103 @@ const SearchPage = () => {
                 OBSERVACAO: i.OBSERVACAO
             }))
             setSearchResult(formatedResponse);
+            if (formatedResponse.length === 0) {
+                setEmptyResult(true)
+            } else {
+
+                setEmptyResult(false)
+            }
+            handleClearForm()
+        } catch (err) {
+            toast({
+                title: "Ops, ocorreu um erro.",
+                description: "Ocorreu um erro ao carregar os dados recarregue a pagina e tente novamente.",
+                status: "error",
+                position: "bottom",
+                isClosable: true,
+                duration: 3000
+            })
+
+        } finally {
+            setLoading(false)
+
+        }
+
+    }
+
+
+    const handleClearForm = () => {
+        setName("")
+        setCompany("")
+        setAgency("")
+        setBrand("")
+    }
+
+    const createSearchQuery = () => {
+
+        const fields = [
+            {
+                name: "CONTATO",
+                value: name
+            },
+            {
+                name: "MARCA",
+                value: brand
+            },
+            {
+                name: "EMPRESA",
+                value: company
+            },
+            {
+                name: "AGENCIA",
+                value: agency
+            },
+        ]
+
+        const validFields = fields.filter(field => field.value.length > 1)
+
+        
+        const normalizedFields = validFields.map(v => `${v.name}=${v.value}` )
+         return normalizedFields.join("&")
+        
+
+
+    }
+
+    const handleSearch = useCallback(async () => {
+        try {
+            setLoading(true)
+            const response = await axios.get(
+                `/api/search?${createSearchQuery()}`,
+            )
+
+            const formatedResponse: CardData[] = response.data.map((i: any) => ({
+                CATEGORIA: i.CATEGORIA,
+                AGENCIA: i.AGENCIA,
+                EMPRESA: i.EMPRESA,
+                MARCA: i.MARCA,
+                SEGMENTO: i.SEGMENTO,
+                CONTATO: i.CONTATO,
+                CARGO: i.CARGO,
+                EMAIL: i["E-mail"],
+                TELEFONE: i.TELEFONE,
+                CELULAR: i.CELULAR,
+                CIDADE: i.CIDADE,
+                ESTADO: i.ESTADO,
+                LINKEDIN: i.LINKEDIN,
+                TWITTER: i.TWITTER,
+                FACEBOOK: i.FACEBOOK,
+                INSTAGRAM: i.INSTAGRAM,
+                ANIVERSARIO: i.ANIVERSARIO,
+                OBSERVACAO: i.OBSERVACAO
+            }))
+            setSearchResult(formatedResponse);
+            if (formatedResponse.length === 0) {
+                setEmptyResult(true)
+            } else {
+
+                setEmptyResult(false)
+            }
             handleClearForm()
         } catch (err) {
             toast({
@@ -95,7 +191,7 @@ const SearchPage = () => {
 
         }
 
-    }, [advertiser, agency, brand, name, searchResult])
+    }, [company, agency, brand, name, searchResult])
 
 
 
@@ -104,7 +200,10 @@ const SearchPage = () => {
         return (
             <Flex>
                 <Text fontSize="xl" color="gray.500">
-                    Faça uma busca para exibir o resultado
+                    {emptyResult 
+                        ? "Não foi possível encontrar um resultado, tente novamente." 
+                        : "Faça uma busca para exibir o resultado"
+                    }
                 </Text>
             </Flex>
         )
@@ -130,15 +229,15 @@ const SearchPage = () => {
                 <Flex mt="-112px" padding="24px" w="100%" justifyContent="center">
                     <SimpleGrid w="70%" bg="white" borderRadius="lg" padding="32px" boxShadow="lg" columns={{ xl: 2, lg: 2, md: 2, sm: 1, base: 1 }} gap="32px">
                         <Flex flexDirection="column">
-                            <FormLabel>Anunciante</FormLabel>
+                            <FormLabel>Empresa</FormLabel>
                             <Input 
-                                placeholder="Pesquise por um anunciante" 
+                                placeholder="Pesquise por uma empresa" 
                                 size="lg" 
                                 type="Text"
                                 mb="16px" 
                                 focusBorderColor="yellow.400"
-                                value={advertiser}
-                                onChange={(e) => setAdvertiser(e.target.value)}
+                                value={company}
+                                onChange={(e) => setCompany(e.target.value)}
                             />
                         </Flex>
                         <Flex flexDirection="column">
@@ -216,11 +315,11 @@ const SearchPage = () => {
                 {!searchResult.length ? (
                     renderEmptyContent()
                 ):( 
-                    <Flex>
+                    <SimpleGrid columns={[1,1,2,3,4]} rowGap="32px" columnGap="32px" mb="32px">
                         {searchResult.map((result) => (
                             <Card data={result} />
                         ))}
-                    </Flex>
+                    </SimpleGrid>
                 )
                 }
            </Fragment> 

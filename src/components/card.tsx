@@ -41,7 +41,7 @@ export const Card = ({ data }: CardProps) => {
         >
 
             <Stack spacing={1}>
-                <Text fontSize="2xl" textAlign="left" color="gray.500">{data.CONTATO}</Text>
+                <Text overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" fontSize="2xl" textAlign="left" color="gray.500" >{data.CONTATO}</Text>
                 <Text fontSize="medium" textAlign="left" color="gray.500">{data.CARGO}</Text>
             </Stack>
             <Flex alignContent="center" mt="16px" mb="16px">
@@ -61,8 +61,8 @@ export const Card = ({ data }: CardProps) => {
             </Flex>
             <Flex mt="16px">
                 <Stack spacing={1}>
-                    <Text fontSize="x-small" fontWeight="bold" textAlign="left" color="gray.500">Anunciante</Text>
-                    <Text fontSize="medium" textAlign="left" color="gray.500">{data.EMPRESA}</Text>
+                    <Text fontSize="x-small" fontWeight="bold" textAlign="left" color="gray.500">Categoria</Text>
+                    <Text fontSize="medium" textAlign="left" color="gray.500">{data.CATEGORIA}</Text>
                 </Stack>
                 <Spacer />
                 <Stack spacing={1}>
