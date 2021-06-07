@@ -38,7 +38,7 @@ const SearchPage = () => {
     const [agency, setAgency] = useState("")
     const [brand, setBrand] = useState("")
     const [name, setName] = useState("")
-    const [ searchResult, setSearchResult ] = useState<CardData[]>([])
+    const [searchResult, setSearchResult] = useState<CardData[]>([])
 
     const toast = useToast()
 
@@ -51,10 +51,13 @@ const SearchPage = () => {
     }
 
     const handleSearch = useCallback(async () => {
+
         try {
             setLoading(true)
+
             const response = await api.get(
-                `/search?ANUNCIANTE=${advertiser}&AGENCIA=${agency}&MARCA=${brand}&NOME=${name}`
+
+                `/search?EMPRESA=${advertiser}&AGENCIA=${agency}&MARCA=${brand}&NOME=${name}`
             )
 
             const formatedResponse: CardData[] = response.data.map((i: any) => ({
@@ -125,16 +128,16 @@ const SearchPage = () => {
                         <Text w="60%" textAlign="center" mt="8px" color="gray.50">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin facilisis mattis tellus, vitae congue lectus pharetra.</Text>
                     </Flex>
                 </Flex>
-    
+
                 <Flex mt="-112px" padding="24px" w="100%" justifyContent="center">
                     <SimpleGrid w="70%" bg="white" borderRadius="lg" padding="32px" boxShadow="lg" columns={{ xl: 2, lg: 2, md: 2, sm: 1, base: 1 }} gap="32px">
                         <Flex flexDirection="column">
-                            <FormLabel>Anunciante</FormLabel>
-                            <Input 
-                                placeholder="Pesquise por um anunciante" 
-                                size="lg" 
+                            <FormLabel>Empresa</FormLabel>
+                            <Input
+                                placeholder="Pesquise por um anunciante"
+                                size="lg"
                                 type="Text"
-                                mb="16px" 
+                                mb="16px"
                                 focusBorderColor="yellow.400"
                                 value={advertiser}
                                 onChange={(e) => setAdvertiser(e.target.value)}
@@ -142,11 +145,11 @@ const SearchPage = () => {
                         </Flex>
                         <Flex flexDirection="column">
                             <FormLabel>Agência</FormLabel>
-                            <Input 
-                                placeholder="Pesquise por uma agência" 
-                                size="lg" 
-                                type="Text" 
-                                mb="16px" 
+                            <Input
+                                placeholder="Pesquise por uma agência"
+                                size="lg"
+                                type="Text"
+                                mb="16px"
                                 focusBorderColor="yellow.400"
                                 value={agency}
                                 onChange={(e) => setAgency(e.target.value)}
@@ -154,32 +157,32 @@ const SearchPage = () => {
                         </Flex>
                         <Flex flexDirection="column">
                             <FormLabel>Marca</FormLabel>
-                            <Input 
+                            <Input
                                 placeholder="Pesquise por uma marca"
-                                size="lg" 
-                                type="Text" 
-                                mb="16px" 
-                                focusBorderColor="yellow.400" 
+                                size="lg"
+                                type="Text"
+                                mb="16px"
+                                focusBorderColor="yellow.400"
                                 value={brand}
                                 onChange={(e) => setBrand(e.target.value)}
                             />
                         </Flex>
                         <Flex flexDirection="column">
                             <FormLabel>Nome</FormLabel>
-                            <Input 
-                                placeholder="Pesquise por um nome" 
-                                size="lg" 
-                                type="Text" 
-                                mb="16px" 
-                                focusBorderColor="yellow.400"                                
+                            <Input
+                                placeholder="Pesquise por um nome"
+                                size="lg"
+                                type="Text"
+                                mb="16px"
+                                focusBorderColor="yellow.400"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
                         </Flex>
                     </SimpleGrid>
-    
+
                 </Flex>
-    
+
                 <Flex justifyContent="flex-end" w="70%" mt="-48px">
                     <Button marginRight="32px" backgroundColor="gray.700"
                         color="yellow.400"
@@ -191,10 +194,10 @@ const SearchPage = () => {
                         onClick={handleSearch}
                     >Buscar</Button>
                 </Flex>
-    
+
             </Flex>
-    
-    
+
+
         )
     }
 
@@ -208,10 +211,10 @@ const SearchPage = () => {
 
     const renderData = () => {
         return (
-           <Fragment>
+            <Fragment>
                 {!searchResult.length ? (
                     renderEmptyContent()
-                ):( 
+                ) : (
                     <Flex>
                         {searchResult.map((result) => (
                             <Card data={result} />
@@ -219,7 +222,7 @@ const SearchPage = () => {
                     </Flex>
                 )
                 }
-           </Fragment> 
+            </Fragment>
         )
     }
     return (

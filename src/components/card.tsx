@@ -61,7 +61,7 @@ export const Card = ({ data }: CardProps) => {
             </Flex>
             <Flex mt="16px">
                 <Stack spacing={1}>
-                    <Text fontSize="x-small" fontWeight="bold" textAlign="left" color="gray.500">Anunciante</Text>
+                    <Text fontSize="x-small" fontWeight="bold" textAlign="left" color="gray.500">Empresa</Text>
                     <Text fontSize="medium" textAlign="left" color="gray.500">{data.EMPRESA}</Text>
                 </Stack>
                 <Spacer />
