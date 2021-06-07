@@ -7,7 +7,6 @@ import { Flex, SimpleGrid, Text } from "@chakra-ui/layout"
 import { useToast } from "@chakra-ui/toast"
 import { Fragment, useCallback, useEffect, useState } from "react"
 import { Card } from "../components/card"
-import { api } from "../services/api"
 import Head from 'next/head'
 import axios from "axios"
 
