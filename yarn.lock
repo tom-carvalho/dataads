@@ -205,10 +205,17 @@
     "@chakra-ui/utils" "1.8.0"
     react-focus-lock "2.5.0"
 
+<<<<<<< HEAD
 "@chakra-ui/form-control@1.3.7":
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/@chakra-ui/form-control/-/form-control-1.3.7.tgz#5a9c7da856f3b4b7eae39edafa2a41a0a0d1f01a"
   integrity sha512-kXrnhI61SYbf+OL4XM+iMFS/OjdqfsIJo+BHNfTC8phY9xTbwnzTeA0kzEwcZa2n043ICzcD5O3QpPf9Z49Kig==
+=======
+"@chakra-ui/form-control@1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/form-control/-/form-control-1.3.6.tgz#f2356551d3bbe7ff50f024d2169a08132467b2a7"
+  integrity sha512-C8tFadZP0Gb8LRKTZWyFbmeGxr5tR6aL0KqIJyGWaUw06I6O2mJTOTsFKTlAN59eRz7C8r4S440eLbhWIgiYLg==
+>>>>>>> 0afa0515de7b92fcf3d93440a16b74a6b009e590
   dependencies:
     "@chakra-ui/hooks" "1.5.3"
     "@chakra-ui/icon" "1.1.9"
