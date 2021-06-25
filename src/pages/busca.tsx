@@ -148,37 +148,6 @@ const SearchPage = () => {
 
     }
 
-    const createSearchQuery = () => {
-
-        const fields = [
-            {
-                name: "CONTATO",
-                value: name
-            },
-            {
-                name: "MARCA",
-                value: brand
-            },
-            {
-                name: "EMPRESA",
-                value: company
-            },
-            {
-                name: "AGENCIA",
-                value: agency
-            },
-        ]
-
-        const validFields = fields.filter(field => field.value.length > 1)
-
-
-        const normalizedFields = validFields.map(v => `${v.name}=${v.value}`)
-        return normalizedFields.join("&")
-
-
-
-    }
-
     const handleSearch = useCallback(async () => {
         try {
             setLoading(true)
