@@ -19,6 +19,7 @@ interface CardData {
     INSTAGRAM: string
     ANIVERSARIO: string
     OBSERVACAO: string
+    ANUNCIANTE: string
 }
 
 interface CardProps {
@@ -52,6 +53,12 @@ export const Card = ({ data }: CardProps) => {
                 <Stack spacing={1}>
                     <Text fontSize="x-small" fontWeight="bold" textAlign="left" color="gray.500">Agência</Text>
                     <Text fontSize="medium" textAlign="left" color="gray.500">{data.AGENCIA}</Text>
+                </Stack>
+            </Flex>
+            <Flex mt="16px">
+                <Stack spacing={1}>
+                    <Text fontSize="x-small" fontWeight="bold" textAlign="left" color="gray.500">Anunciante</Text>
+                    <Text fontSize="medium" textAlign="left" color="gray.500">{data.ANUNCIANTE}</Text>
                 </Stack>
             </Flex>
             <Flex mt="16px">
