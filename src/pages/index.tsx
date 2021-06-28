@@ -27,7 +27,7 @@ const IndexPage = () => {
           <Flex alignItems="center" justifyContent="center" flexDirection="column">
             <Flex flexDirection="column" padding="20px" alignItems="center" justifyContent="center">
               <Image src="/images/Logo.png" w="230px" alt="Logo DataAds" mt="24px" />
-              <Text w="90%" textAlign="center" mt="8px">O DataAds é um Database Management atualizado com informações sobre as principais agências, campanhas, empresas e pessoas do seguimento publicitário.</Text>
+              <Text w="90%" textAlign="center" mt="8px">O DataAds é um Database Management atualizado com informações sobre as principais agências, campanhas, empresas e pessoas do segmento publicitário.</Text>
             </Flex>
             <Flex as="form" flexDirection="column" w="100%" paddingX="40px" mt="32px" >
               <FormLabel>E-mail</FormLabel>

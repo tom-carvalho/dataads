@@ -233,7 +233,7 @@ const SearchPage = () => {
                 <Flex bg="gray.700" h="44" justifyContent="center" paddingBottom="300px" width="100%">
                     <Flex flexDirection="column" alignItems="center">
                         <Image src="/images/Logo-negative.png" w="230px" alt="Logo DataAds" mt="40px" />
-                        <Text w="60%" textAlign="center" mt="8px" color="gray.50">O DataAds é um Database Management atualizado com informações sobre as principais agências, campanhas, empresas e pessoas do seguimento publicitário.</Text>
+                        <Text w="60%" textAlign="center" mt="8px" color="gray.50">O DataAds é um Database Management atualizado com informações sobre as principais agências, campanhas, empresas e pessoas do segmento publicitário.</Text>
                     </Flex>
                 </Flex>
 
@@ -278,7 +278,7 @@ const SearchPage = () => {
                         <Flex flexDirection="column">
                             <FormLabel>Setor</FormLabel>
                             <Input
-                                placeholder="Pesquise por um nome"
+                                placeholder="Pesquise por um setor"
                                 size="lg"
                                 type="Text"
                                 mb="16px"
