@@ -41,7 +41,7 @@ const BdCadastro = () => (
                         <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                     </Flex>
                     <Flex flexDirection="column" ml="24px" >
-                        <FormLabel>Agência</FormLabel>
+                        <FormLabel>Função</FormLabel>
                         <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                     </Flex>
                 </Flex>
@@ -49,11 +49,11 @@ const BdCadastro = () => (
                 <Flex flexDirection="column">
                     <Flex flexDirection="row">
                         <Flex flexDirection="column">
-                            <FormLabel>Marca</FormLabel>
+                            <FormLabel>E-mail</FormLabel>
                             <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                         </Flex>
                         <Flex flexDirection="column" ml="24px" >
-                            <FormLabel>Anunciante</FormLabel>
+                            <FormLabel>Telefone</FormLabel>
                             <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                         </Flex>
                     </Flex>
@@ -61,11 +61,11 @@ const BdCadastro = () => (
                     <Flex flexDirection="column">
                         <Flex flexDirection="row">
                             <Flex flexDirection="column">
-                                <FormLabel>Segmento</FormLabel>
+                                <FormLabel>Celular</FormLabel>
                                 <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                             </Flex>
                             <Flex flexDirection="column" ml="24px" >
-                                <FormLabel>E-mail</FormLabel>
+                                <FormLabel>Whatsapp</FormLabel>
                                 <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                             </Flex>
                         </Flex>
@@ -73,11 +73,109 @@ const BdCadastro = () => (
                         <Flex flexDirection="column">
                             <Flex flexDirection="row">
                                 <Flex flexDirection="column">
-                                    <FormLabel>Telefone</FormLabel>
+                                    <FormLabel>Cidade</FormLabel>
                                     <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
                                 <Flex flexDirection="column" ml="24px" >
-                                    <FormLabel>Celular</FormLabel>
+                                    <FormLabel>Estado</FormLabel>
+                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                            </Flex>
+
+                        </Flex>
+
+                        <Flex flexDirection="column">
+                            <Flex flexDirection="row">
+                                <Flex flexDirection="column">
+                                    <FormLabel>Contato</FormLabel>
+                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                                <Flex flexDirection="column" ml="24px" >
+                                    <FormLabel>Categoria</FormLabel>
+                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                            </Flex>
+
+                        </Flex>
+
+                        <Flex flexDirection="column">
+                            <Flex flexDirection="row">
+                                <Flex flexDirection="column">
+                                    <FormLabel>Agência</FormLabel>
+                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                                <Flex flexDirection="column" ml="24px" >
+                                    <FormLabel>Anunciante</FormLabel>
+                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                            </Flex>
+
+                        </Flex>
+
+                        <Flex flexDirection="column">
+                            <Flex flexDirection="row">
+                                <Flex flexDirection="column">
+                                    <FormLabel>Marca</FormLabel>
+                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                                <Flex flexDirection="column" ml="24px" >
+                                    <FormLabel>Setor</FormLabel>
+                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                            </Flex>
+
+                        </Flex>
+
+                        <Flex flexDirection="column">
+                            <Flex flexDirection="row">
+                                <Flex flexDirection="column">
+                                    <FormLabel>Segmento</FormLabel>
+                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                                <Flex flexDirection="column" ml="24px" >
+                                    <FormLabel>Departamento</FormLabel>
+                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                            </Flex>
+
+                        </Flex>
+
+                        <Flex flexDirection="column">
+                            <Flex flexDirection="row">
+                                <Flex flexDirection="column">
+                                    <FormLabel>Linkedin</FormLabel>
+                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                                <Flex flexDirection="column" ml="24px" >
+                                    <FormLabel>Twitter</FormLabel>
+                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                            </Flex>
+
+                        </Flex>
+
+                        <Flex flexDirection="column">
+                            <Flex flexDirection="row">
+                                <Flex flexDirection="column">
+                                    <FormLabel>Facebook</FormLabel>
+                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                                <Flex flexDirection="column" ml="24px" >
+                                    <FormLabel>Instagram</FormLabel>
+                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                            </Flex>
+
+                        </Flex>
+
+                        <Flex flexDirection="column">
+                            <Flex flexDirection="row">
+                                <Flex flexDirection="column">
+                                    <FormLabel>Aniversário</FormLabel>
+                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                                <Flex flexDirection="column" ml="24px" >
+                                    <FormLabel>Ref/Observações</FormLabel>
                                     <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
                             </Flex>
@@ -88,7 +186,7 @@ const BdCadastro = () => (
 
                 </Flex>
             </Flex>
-            <Flex justifyContent="flex-end">
+            <Flex justifyContent="flex-end" pb="40px">
                 <Button backgroundColor="gray.700"
                     color="yellow.400"
                     size="lg"

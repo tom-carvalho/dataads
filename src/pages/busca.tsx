@@ -6,6 +6,7 @@ import { Input } from "@chakra-ui/input"
 import { Flex, SimpleGrid, Text } from "@chakra-ui/layout"
 import { useToast } from "@chakra-ui/toast"
 import { Fragment, useCallback, useEffect, useState } from "react"
+import { Select } from "@chakra-ui/react"
 import { Card } from "../components/card"
 import Head from 'next/head'
 import axios from "axios"
@@ -167,7 +168,7 @@ const SearchPage = () => {
                 CARGO: i.CARGO,
                 FUNCAO: i.FUNCAO,
                 DEPARTAMENTO: i.DEPARTAMENTO,
-                EMAIL: i["E-mail"],
+                EMAIL: i["E-MAIL"],
                 TELEFONE: i.TELEFONE,
                 CELULAR: i.CELULAR,
                 CIDADE: i.CIDADE,
@@ -275,7 +276,7 @@ const SearchPage = () => {
                                 onChange={(e) => setMarca(e.target.value)}
                             />
                         </Flex>
-                        <Flex flexDirection="column">
+                        {/* <Flex flexDirection="column">
                             <FormLabel>Setor</FormLabel>
                             <Input
                                 placeholder="Pesquise por um setor"
@@ -286,12 +287,44 @@ const SearchPage = () => {
                                 value={setor}
                                 onChange={(e) => setSetor(e.target.value)}
                             />
+                        </Flex> */}
+                        <Flex flexDirection="column">
+                            <FormLabel>Setor</FormLabel>
+                            <Select placeholder="Selecionar Setor"
+                                size="lg"
+                                focusBorderColor="yellow.400"
+                                value={setor}
+                                onChange={(e) => setSetor(e.target.value)}
+                            >
+                                <option value="option1">Bens de Consumo</option>
+                                <option value="option2">Serviços</option>
+                                <option value="option3">Telecom/Tecnologia/Streaming</option>
+                                <option value="option3">Comércio/Varejo</option>
+                                <option value="option3">Finanças (financeiro)</option>
+                                <option value="option3">Autos</option>
+                                <option value="option3">Governo</option>
+                            </Select>
                         </Flex>
+
+
                     </SimpleGrid>
 
                 </Flex>
 
+
                 <Flex justifyContent="flex-end" w="70%" mt="-48px">
+
+                    <Button marginRight="32px" backgroundColor="gray.700"
+                        color="yellow.400"
+                        size="lg"
+                        _hover={{
+                            backgroundColor: "gray.800"
+                        }}
+                        transition="background-color 0.5s"
+
+                    >Download</Button>
+
+
                     <Button marginRight="32px" backgroundColor="gray.700"
                         color="yellow.400"
                         size="lg"
@@ -307,7 +340,10 @@ const SearchPage = () => {
 
 
         )
+
     }
+
+
 
     const renderLoading = () => {
         return (
