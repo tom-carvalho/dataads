@@ -14,10 +14,10 @@ const BdCadastro = () => (
         alignItems="center"
         justifyContent="center"
     >
-        <Flex bg="gray.700" h="44" justifyContent="center" width="100%">
+        <Flex bg="gray.700" justifyContent="center" width="100%">
             <Flex flexDirection="column" alignItems="center">
-                <Image src="/images/Logo-negative.png" w="230px" alt="Logo DataAds" mt="40px" />
-                <Text w="60%" textAlign="center" mt="8px" color="gray.50">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin facilisis mattis tellus, vitae congue lectus pharetra.</Text>
+                <Image src="/images/Logo-negative.png" w="230px" alt="Logo DataAds" m="40px" />
+
             </Flex>
         </Flex>
         <Flex p="24px">
