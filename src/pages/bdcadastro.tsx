@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/button"
 import { FormLabel } from "@chakra-ui/form-control"
 import { Image } from "@chakra-ui/image"
 import { Input } from "@chakra-ui/input"
-import { Divider, Flex, Heading, Stack, Text } from "@chakra-ui/layout"
+import { Divider, Flex, Heading, Stack } from "@chakra-ui/layout"
 
 
 const BdCadastro = () => (
