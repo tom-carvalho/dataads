@@ -12,7 +12,7 @@ const IndexPage = () => {
   return (
     <Fragment>
       <Head>
-        <title>DataAds | Login</title>
+        <title>DataChain | Login</title>
       </Head>
       <Flex
         as="main"
@@ -26,8 +26,8 @@ const IndexPage = () => {
         <Box bg="gray.50" borderRadius="lg" w={{ xl: "500px", lg: "500px", md: "400px", sm: "100%", base: "100%" }}>
           <Flex alignItems="center" justifyContent="center" flexDirection="column">
             <Flex flexDirection="column" padding="20px" alignItems="center" justifyContent="center">
-              <Image src="/images/Logo.png" w="230px" alt="Logo DataAds" mt="24px" />
-              <Text w="90%" textAlign="center" mt="8px">O DataAds é um Database Management atualizado com informações sobre as principais agências, campanhas, empresas e pessoas do segmento publicitário.</Text>
+              <Image src="/images/Logo.png" w="220px" alt="Logo DataAds" mt="24px" />
+              <Text w="90%" textAlign="center" mt="8px">O DataChain é um Database Management atualizado com informações sobre as principais agências, campanhas, empresas e pessoas do segmento publicitário.</Text>
             </Flex>
             <Flex as="form" flexDirection="column" w="100%" paddingX="40px" mt="32px" >
               <FormLabel>E-mail</FormLabel>

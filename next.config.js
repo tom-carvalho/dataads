@@ -1,10 +1,10 @@
 module.exports = {
   async rewrites() {
-      return [
-        {
-          source: '/api/:path*',
-          destination: 'http://18.117.123.22:5000/:path*',
-        },
-      ]
-    },
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://3.131.69.11:5000/:path*',
+      },
+    ]
+  },
 };

@@ -5,6 +5,8 @@ import { Input } from "@chakra-ui/input"
 import { Divider, Flex, Heading, Stack } from "@chakra-ui/layout"
 
 
+
+
 const BdCadastro = () => (
 
     <Flex
