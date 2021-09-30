@@ -112,10 +112,10 @@ function BdCadastro() {
                 console.log(response)
             }}
         >
-            {(props) => (
+            {() => (
                 <Flex as={Form} flexDirection="column" w="648px">
                 <Field name="NOME" flex={1} >
-                    {({ field, form}: FieldProps) => (
+                    {({ field}: FieldProps) => (
                         <Flex flexDirection="column">
                         <FormLabel>Nome</FormLabel>
                         <Input {...field} size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="100%" />
@@ -125,7 +125,7 @@ function BdCadastro() {
                 <Flex flexDirection="column">
                     <SimpleGrid columns={2} columnGap="24px">
                         <Field name="CARGO">
-                            {({ field, form}: FieldProps) => (
+                            {({ field}: FieldProps) => (
                             <Flex flexDirection="column">
                             <FormLabel>Cargo</FormLabel>
                             <Input {...field} size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -133,7 +133,7 @@ function BdCadastro() {
                     )}
                         </Field>
                         <Field name="FUNCAO">
-                        {({ field, form}: FieldProps) => (
+                        {({ field}: FieldProps) => (
                             <Flex flexDirection="column">
                             <FormLabel>Função</FormLabel>
                             <Input {...field} size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -142,7 +142,7 @@ function BdCadastro() {
                         </Field>
 
                         <Field name="EMAIL">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>E-mail</FormLabel>
                                     <Input {...field} size="lg" type="email" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -150,7 +150,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="TELEFONE">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Telefone</FormLabel>
                                     <Input {...field} size="lg" type="phone" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -158,7 +158,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="CELULAR">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Celular</FormLabel>
                                     <Input {...field} size="lg" type="phone" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -166,7 +166,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="WHATSAPP">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>WhatsApp</FormLabel>
                                     <Input {...field} size="lg" type="phone" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -174,7 +174,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="CIDADE">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Cidade</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -182,7 +182,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="ESTADO">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Estado</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -190,7 +190,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="CONTATO">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Contato</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -198,7 +198,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="CATEGORIA">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Categoria</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -206,7 +206,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="AGENCIA">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Agência</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -214,7 +214,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="ANUNCIANTE">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Anunciante</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -222,7 +222,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="MARCA">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Marca</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -230,7 +230,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="SETOR">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Setor</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -238,7 +238,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="SEGMENTO">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Segmento</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -246,7 +246,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="DEPARTAMENTO">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Departamento</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -254,7 +254,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="LINKEDIN">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Linkedin</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -262,7 +262,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="TWITTER">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Twitter</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -270,7 +270,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="FACEBOOK">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Facebook</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -278,7 +278,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="INSTAGRAM">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Instagram</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -286,7 +286,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="ANIVERSARIO">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Aniversário</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
@@ -294,7 +294,7 @@ function BdCadastro() {
                             )}
                         </Field>
                         <Field name="REFOBSERVACOES">
-                            {({ field, form }: FieldProps) => (
+                            {({ field }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Ref/ Observações</FormLabel>
                                     <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
