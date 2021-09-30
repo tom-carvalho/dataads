@@ -2,14 +2,70 @@ import { Button } from "@chakra-ui/button"
 import { FormLabel } from "@chakra-ui/form-control"
 import { Image } from "@chakra-ui/image"
 import { Input } from "@chakra-ui/input"
-import { Divider, Flex, Heading, Stack } from "@chakra-ui/layout"
+import { Divider, Flex, Heading, SimpleGrid, Stack } from "@chakra-ui/layout"
+import { useToast } from "@chakra-ui/toast"
+import axios from "axios"
+import { Formik, Field, FieldProps, Form } from "formik"
+
+interface IForm{
+    NOME: string
+    CATEGORIA: string
+    AGENCIA: string
+    ANUNCIANTE: string
+    MARCA: string
+    SETOR: string
+    SEGMENTO: string
+    CONTATO: string
+    DEPARTAMENTO: string
+    CARGO: string
+    FUNCAO: string
+    EMAIL: string
+    TELEFONE: string
+    CELULAR: string
+    WHATSAPP: string
+    CIDADE: string
+    ESTADO: string
+    LINKEDIN: string
+    TWITTER: string
+    FACEBOOK: string
+    INSTAGRAM: string
+    ANIVERSARIO: string
+    REFOBSERVACOES: string
+}
 
 
 
+function BdCadastro() {
+    const toast = useToast()
 
-const BdCadastro = () => (
+    const formValues: IForm = {
+        NOME: "",
+        CATEGORIA: "",
+        AGENCIA: "",
+        ANUNCIANTE: "",
+        MARCA: "",
+        SETOR: "",
+        SEGMENTO: "",
+        CONTATO: "",
+        DEPARTAMENTO: "",
+        CARGO: "",
+        FUNCAO: "",
+        EMAIL: "",
+        TELEFONE: "",
+        CELULAR: "",
+        WHATSAPP: "",
+        CIDADE: "",
+        ESTADO: "",
+        LINKEDIN: "",
+        TWITTER: "",
+        FACEBOOK: "",
+        INSTAGRAM: "",
+        ANIVERSARIO: "",
+        REFOBSERVACOES: "",
+    }
 
-    <Flex
+    return (
+        <Flex
         as="main"
         width="100%"
         flexDirection="column"
@@ -31,178 +87,240 @@ const BdCadastro = () => (
             <Divider colorScheme="gray.300" w="648px" h="1px" orientation="horizontal" />
         </Flex>
 
-        <Flex as="form" flexDirection="column" w="648px">
-            <Flex flexDirection="column">
-                <FormLabel>Nome</FormLabel>
-                <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="648px" />
-            </Flex>
-            <Flex flexDirection="column">
-                <Flex flexDirection="row">
-                    <Flex flexDirection="column">
-                        <FormLabel>Cargo</FormLabel>
-                        <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
-                    </Flex>
-                    <Flex flexDirection="column" ml="24px" >
-                        <FormLabel>Função</FormLabel>
-                        <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
-                    </Flex>
-                </Flex>
+        <Formik
+            initialValues={formValues}
+            onSubmit={async(values, actions) => {
+                console.log(values)
+                const response = await axios.post(
+                    `/api/search`,
+                    {
+                        ...values,
+                        ["E-MAIL"]: values.EMAIL,
+                        ["REF/OBSERVACOES"]: values.REFOBSERVACOES
+                    }
+                )
 
+                actions.resetForm()
+                toast({
+                    title: "Sucesso",
+                    description: "Dados do anunciante salvos com sucesso",
+                    status: "success",
+                    position: "bottom",
+                    isClosable: true,
+                    duration: 3000
+                })
+                console.log(response)
+            }}
+        >
+            {(props) => (
+                <Flex as={Form} flexDirection="column" w="648px">
+                <Field name="NOME" flex={1} >
+                    {({ field, form}: FieldProps) => (
+                        <Flex flexDirection="column">
+                        <FormLabel>Nome</FormLabel>
+                        <Input {...field} size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="100%" />
+                    </Flex>
+                    )}
+                </Field>
                 <Flex flexDirection="column">
-                    <Flex flexDirection="row">
-                        <Flex flexDirection="column">
-                            <FormLabel>E-mail</FormLabel>
-                            <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
-                        </Flex>
-                        <Flex flexDirection="column" ml="24px" >
-                            <FormLabel>Telefone</FormLabel>
-                            <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
-                        </Flex>
-                    </Flex>
-
-                    <Flex flexDirection="column">
-                        <Flex flexDirection="row">
+                    <SimpleGrid columns={2} columnGap="24px">
+                        <Field name="CARGO">
+                            {({ field, form}: FieldProps) => (
                             <Flex flexDirection="column">
-                                <FormLabel>Celular</FormLabel>
-                                <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
-                            </Flex>
-                            <Flex flexDirection="column" ml="24px" >
-                                <FormLabel>Whatsapp</FormLabel>
-                                <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
-                            </Flex>
+                            <FormLabel>Cargo</FormLabel>
+                            <Input {...field} size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                         </Flex>
+                    )}
+                        </Field>
+                        <Field name="FUNCAO">
+                        {({ field, form}: FieldProps) => (
+                            <Flex flexDirection="column">
+                            <FormLabel>Função</FormLabel>
+                            <Input {...field} size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                        </Flex>
+                    )}
+                        </Field>
 
-                        <Flex flexDirection="column">
-                            <Flex flexDirection="row">
+                        <Field name="EMAIL">
+                            {({ field, form }: FieldProps) => (
+                                <Flex flexDirection="column">
+                                    <FormLabel>E-mail</FormLabel>
+                                    <Input {...field} size="lg" type="email" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                            )}
+                        </Field>
+                        <Field name="TELEFONE">
+                            {({ field, form }: FieldProps) => (
+                                <Flex flexDirection="column">
+                                    <FormLabel>Telefone</FormLabel>
+                                    <Input {...field} size="lg" type="phone" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                            )}
+                        </Field>
+                        <Field name="CELULAR">
+                            {({ field, form }: FieldProps) => (
+                                <Flex flexDirection="column">
+                                    <FormLabel>Celular</FormLabel>
+                                    <Input {...field} size="lg" type="phone" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                            )}
+                        </Field>
+                        <Field name="WHATSAPP">
+                            {({ field, form }: FieldProps) => (
+                                <Flex flexDirection="column">
+                                    <FormLabel>WhatsApp</FormLabel>
+                                    <Input {...field} size="lg" type="phone" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                </Flex>
+                            )}
+                        </Field>
+                        <Field name="CIDADE">
+                            {({ field, form }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Cidade</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                                <Flex flexDirection="column" ml="24px" >
+                            )}
+                        </Field>
+                        <Field name="ESTADO">
+                            {({ field, form }: FieldProps) => (
+                                <Flex flexDirection="column">
                                     <FormLabel>Estado</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                            </Flex>
-
-                        </Flex>
-
-                        <Flex flexDirection="column">
-                            <Flex flexDirection="row">
+                            )}
+                        </Field>
+                        <Field name="CONTATO">
+                            {({ field, form }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Contato</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                                <Flex flexDirection="column" ml="24px" >
+                            )}
+                        </Field>
+                        <Field name="CATEGORIA">
+                            {({ field, form }: FieldProps) => (
+                                <Flex flexDirection="column">
                                     <FormLabel>Categoria</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                            </Flex>
-
-                        </Flex>
-
-                        <Flex flexDirection="column">
-                            <Flex flexDirection="row">
+                            )}
+                        </Field>
+                        <Field name="AGENCIA">
+                            {({ field, form }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Agência</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                                <Flex flexDirection="column" ml="24px" >
+                            )}
+                        </Field>
+                        <Field name="ANUNCIANTE">
+                            {({ field, form }: FieldProps) => (
+                                <Flex flexDirection="column">
                                     <FormLabel>Anunciante</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                            </Flex>
-
-                        </Flex>
-
-                        <Flex flexDirection="column">
-                            <Flex flexDirection="row">
+                            )}
+                        </Field>
+                        <Field name="MARCA">
+                            {({ field, form }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Marca</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                                <Flex flexDirection="column" ml="24px" >
+                            )}
+                        </Field>
+                        <Field name="SETOR">
+                            {({ field, form }: FieldProps) => (
+                                <Flex flexDirection="column">
                                     <FormLabel>Setor</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                            </Flex>
-
-                        </Flex>
-
-                        <Flex flexDirection="column">
-                            <Flex flexDirection="row">
+                            )}
+                        </Field>
+                        <Field name="SEGMENTO">
+                            {({ field, form }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Segmento</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                                <Flex flexDirection="column" ml="24px" >
+                            )}
+                        </Field>
+                        <Field name="DEPARTAMENTO">
+                            {({ field, form }: FieldProps) => (
+                                <Flex flexDirection="column">
                                     <FormLabel>Departamento</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                            </Flex>
-
-                        </Flex>
-
-                        <Flex flexDirection="column">
-                            <Flex flexDirection="row">
+                            )}
+                        </Field>
+                        <Field name="LINKEDIN">
+                            {({ field, form }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Linkedin</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                                <Flex flexDirection="column" ml="24px" >
+                            )}
+                        </Field>
+                        <Field name="TWITTER">
+                            {({ field, form }: FieldProps) => (
+                                <Flex flexDirection="column">
                                     <FormLabel>Twitter</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                            </Flex>
-
-                        </Flex>
-
-                        <Flex flexDirection="column">
-                            <Flex flexDirection="row">
+                            )}
+                        </Field>
+                        <Field name="FACEBOOK">
+                            {({ field, form }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Facebook</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                                <Flex flexDirection="column" ml="24px" >
+                            )}
+                        </Field>
+                        <Field name="INSTAGRAM">
+                            {({ field, form }: FieldProps) => (
+                                <Flex flexDirection="column">
                                     <FormLabel>Instagram</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                            </Flex>
-
-                        </Flex>
-
-                        <Flex flexDirection="column">
-                            <Flex flexDirection="row">
+                            )}
+                        </Field>
+                        <Field name="ANIVERSARIO">
+                            {({ field, form }: FieldProps) => (
                                 <Flex flexDirection="column">
                                     <FormLabel>Aniversário</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                                <Flex flexDirection="column" ml="24px" >
-                                    <FormLabel>Ref/Observações</FormLabel>
-                                    <Input size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                            )}
+                        </Field>
+                        <Field name="REFOBSERVACOES">
+                            {({ field, form }: FieldProps) => (
+                                <Flex flexDirection="column">
+                                    <FormLabel>Ref/ Observações</FormLabel>
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                 </Flex>
-                            </Flex>
-
+                            )}
+                        </Field>
+                    </SimpleGrid>
+                        <Flex justifyContent="flex-end" pb="40px" mt="30px">
+                            <Button backgroundColor="gray.700"
+                                type="submit"
+                                color="yellow.400"
+                                size="lg"
+                                _hover={{
+                                    backgroundColor: "gray.800"
+                                }}
+                                transition="background-color 0.5s"
+                            >Salvar no banco de dados</Button>
                         </Flex>
-
-                    </Flex>
-
                 </Flex>
             </Flex>
-            <Flex justifyContent="flex-end" pb="40px">
-                <Button backgroundColor="gray.700"
-                    color="yellow.400"
-                    size="lg"
-                    _hover={{
-                        backgroundColor: "gray.800"
-                    }}
-                    transition="background-color 0.5s"
-                    onClick={() => {
-                    }}
-                >Salvar no banco de dados</Button>
-            </Flex>
-        </Flex>
+            )}
+        </Formik>
+
 
     </Flex>
-)
+    )
+}
 
 export default BdCadastro
