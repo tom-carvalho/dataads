@@ -10,6 +10,7 @@ import { Select } from "@chakra-ui/react"
 import { Card } from "../components/card"
 import Head from 'next/head'
 import axios from "axios"
+import save from 'save-file'
 
 
 interface CardData {
@@ -296,13 +297,13 @@ const SearchPage = () => {
                                 value={setor}
                                 onChange={(e) => setSetor(e.target.value)}
                             >
-                                <option value="option1">Bens de Consumo</option>
-                                <option value="option2">Serviços</option>
-                                <option value="option3">Telecom/Tecnologia/Streaming</option>
-                                <option value="option3">Comércio/Varejo</option>
-                                <option value="option3">Finanças (financeiro)</option>
-                                <option value="option3">Autos</option>
-                                <option value="option3">Governo</option>
+                                <option value="Bens de Consumo">Bens de Consumo</option>
+                                <option value="Serviços">Serviços</option>
+                                <option value="Telecom/Tecnologia/Streaming">Telecom/Tecnologia/Streaming</option>
+                                <option value="Comércio/Varejo">Comércio/Varejo</option>
+                                <option value="Finanças">Finanças (financeiro)</option>
+                                <option value="Autos">Autos</option>
+                                <option value="Governo">Governo</option>
                             </Select>
                         </Flex>
 
@@ -321,7 +322,7 @@ const SearchPage = () => {
                             backgroundColor: "gray.800"
                         }}
                         transition="background-color 0.5s"
-
+                        onClick={handleDownload}
                     >Download</Button>
 
 
@@ -342,6 +343,40 @@ const SearchPage = () => {
         )
 
     }
+
+
+
+
+    const sendDownload = useCallback(async (file: Buffer) => {
+        const buff = new Uint8Array(file).buffer
+        const blob = new Blob([buff], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        })
+
+        return save(blob, 'tdd-excel.xlsx')
+    }, [])
+
+    const handleDownload = async () => {
+        console.log()
+        try {
+            const result = await axios.post('/api/search/export', {
+                searchResult
+            })
+            await sendDownload(result.data)
+        } catch (error) {
+            toast({
+                title: 'Erro',
+                description: 'Ocorreu um erro ao gerar sua planilha, tente novamente.',
+                status: 'error',
+                isClosable: true,
+                position: 'bottom',
+            })
+        }
+    }
+
+
+
+
 
 
 
@@ -380,6 +415,13 @@ const SearchPage = () => {
             </Flex>
         </Fragment>
     )
+
+
+
+
+
+
+
 }
 
 export default SearchPage

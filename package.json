@@ -16,7 +16,8 @@
     "framer-motion": "^4",
     "next": "latest",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "save-file": "^2.3.1"
   },
   "devDependencies": {
     "@types/node": "^12.12.21",
