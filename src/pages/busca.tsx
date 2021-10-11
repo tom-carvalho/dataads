@@ -188,7 +188,7 @@ const SearchPage = () => {
 
                 setEmptyResult(false)
             }
-            handleClearForm()
+            // handleClearForm()
         } catch (err) {
             toast({
                 title: "Ops, ocorreu um erro.",
@@ -348,20 +348,20 @@ const SearchPage = () => {
 
 
     const sendDownload = useCallback(async (file: Buffer) => {
-        const buff = new Uint8Array(file).buffer
+        const buff = new Uint8Array(file)
         const blob = new Blob([buff], {
             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         })
-
-        return save(blob, 'tdd-excel.xlsx')
+        console.log(typeof file)
+        return save(blob, 'datachain.xlsx')
     }, [])
 
     const handleDownload = async () => {
-        console.log()
+
         try {
-            const result = await axios.post('/api/search/export', {
-                searchResult
-            })
+            const result = await axios.get(`/api/search/export?${createSearchQuery()}`
+            )
+            console.log(result)
             await sendDownload(result.data)
         } catch (error) {
             toast({
