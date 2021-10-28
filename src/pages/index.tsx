@@ -3,12 +3,24 @@ import { FormLabel } from "@chakra-ui/form-control"
 import { Image } from "@chakra-ui/image"
 import { Input } from "@chakra-ui/input"
 import { Flex, Link, Text, Box, } from "@chakra-ui/layout"
-import { useRouter } from "next/router"
-import { Fragment } from "react"
+import { Fragment, useContext, useState } from "react"
 import Head from "next/head"
+import { GetServerSideProps, GetServerSidePropsContext } from "next"
+import { parseCookies } from "nookies"
+import { AuthContext } from "../context/authContext"
 
-const IndexPage = () => {
-  const router = useRouter()
+export default function IndexPage () {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const { signIn } = useContext(AuthContext)
+
+  async function handleLogin() {
+    await signIn({
+      email,
+      password
+    })
+  }
   return (
     <Fragment>
       <Head>
@@ -31,9 +43,9 @@ const IndexPage = () => {
             </Flex>
             <Flex as="form" flexDirection="column" w="100%" paddingX="40px" mt="32px" >
               <FormLabel>E-mail</FormLabel>
-              <Input placeholder="nome@dominio.com" size="lg" type="email" mb="24px" focusBorderColor="yellow.400" />
+              <Input type="email" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="nome@dominio.com" size="lg"  mb="24px" focusBorderColor="yellow.400" />
               <FormLabel >Senha</FormLabel>
-              <Input placeholder="Senha de 8 caracteres" size="lg" type="password" mb="24px" focusBorderColor="yellow.400" />
+              <Input onChange={(e) => setPassword(e.target.value)} value={password}placeholder="Senha de 8 caracteres" size="lg" type="password" mb="24px" focusBorderColor="yellow.400" />
 
               <Button
                 backgroundColor="gray.700"
@@ -43,7 +55,7 @@ const IndexPage = () => {
                   backgroundColor: "gray.800"
                 }}
                 transition="background-color 0.5s"
-                onClick={() => router.push('/busca')}>Entrar</Button>
+                onClick={handleLogin}>Entrar</Button>
 
             </Flex>
 
@@ -69,4 +81,20 @@ const IndexPage = () => {
   )
 }
 
-export default IndexPage
+export const getServerSideProps: GetServerSideProps = async(context: GetServerSidePropsContext) => {
+  const { dataChainToken: token } = parseCookies(context)
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/busca',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {},
+  }
+}
+

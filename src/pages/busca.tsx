@@ -11,6 +11,8 @@ import { Card } from "../components/card"
 import Head from 'next/head'
 import axios from "axios"
 import save from 'save-file'
+import { GetServerSideProps, GetServerSidePropsContext } from "next"
+import { parseCookies } from "nookies"
 
 
 interface CardData {
@@ -39,7 +41,7 @@ interface CardData {
 }
 
 
-const SearchPage = () => {
+export default function SearchPage (){
     const [emptyResult, setEmptyResult] = useState(false)
     const [loading, setLoading] = useState(false)
     const [anunciante, setAnunciante] = useState("")
@@ -424,4 +426,20 @@ const SearchPage = () => {
 
 }
 
-export default SearchPage
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+    const { dataChainToken: token } = parseCookies(context)
+
+    if (!token) {
+        return {
+          redirect: {
+            destination: '/',
+            permanent: false,
+          },
+        }
+      }
+    
+      return {
+        props: {},
+      }
+
+}
