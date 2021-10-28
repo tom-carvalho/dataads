@@ -348,32 +348,31 @@ export default function SearchPage (){
 
 
 
-
-    const sendDownload = useCallback(async (file: Buffer) => {
-        const buff = new Uint8Array(file)
-        const blob = new Blob([buff], {
-            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        })
-        console.log(typeof file)
-        return save(blob, 'datachain.xlsx')
-    }, [])
-
     const handleDownload = async () => {
 
-        try {
-            const result = await axios.get(`/api/search/export?${createSearchQuery()}`
-            )
-            console.log(result)
-            await sendDownload(result.data)
-        } catch (error) {
-            toast({
-                title: 'Erro',
-                description: 'Ocorreu um erro ao gerar sua planilha, tente novamente.',
-                status: 'error',
-                isClosable: true,
-                position: 'bottom',
+            
+            await axios.get(`/api/search/export?${createSearchQuery()}`, { responseType: 'blob' }
+            ).then((res) => {
+                console.log(res) 
+                var data = new File([res.data],"datachain.xlsx")
+
+                var csvURL = window.URL.createObjectURL(data);
+                
+                var tempLink = document.createElement('a');
+                    tempLink.href = csvURL;
+                    tempLink.setAttribute('download', 'datachain.xlsx');
+                    tempLink.click();
+
+            }).catch(()=>{
+                toast({
+                    title: 'Erro',
+                    description: 'Ocorreu um erro ao gerar sua planilha, tente novamente.',
+                    status: 'error',
+                    isClosable: true,
+                    position: 'bottom',
+                })
             })
-        }
+        
     }
 
 
