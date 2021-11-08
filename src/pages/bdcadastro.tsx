@@ -121,16 +121,17 @@ export default function BdCadastro() {
             >
                 {() => (
                     <Flex as={Form} flexDirection="column" w="648px">
-                    <Field name="NOME" flex={1} >
-                        {({ field}: FieldProps) => (
-                            <Flex flexDirection="column">
-                            <FormLabel>Nome</FormLabel>
-                            <Input {...field} size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="100%" />
-                        </Flex>
-                        )}
-                    </Field>
+                    
                     <Flex flexDirection="column">
                         <SimpleGrid columns={2} columnGap="24px">
+                        <Field name="CONTATO" flex={1}>
+                        {({ field }: FieldProps) => (
+                            <Flex flexDirection="column" w="100%">
+                                <FormLabel>Nome</FormLabel>
+                                <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                            </Flex>
+                        )}
+                    </Field>
                             <Field name="CARGO">
                                 {({ field}: FieldProps) => (
                                 <Flex flexDirection="column">
@@ -192,14 +193,6 @@ export default function BdCadastro() {
                                 {({ field }: FieldProps) => (
                                     <Flex flexDirection="column">
                                         <FormLabel>Estado</FormLabel>
-                                        <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
-                                    </Flex>
-                                )}
-                            </Field>
-                            <Field name="CONTATO">
-                                {({ field }: FieldProps) => (
-                                    <Flex flexDirection="column">
-                                        <FormLabel>Contato</FormLabel>
                                         <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
                                     </Flex>
                                 )}

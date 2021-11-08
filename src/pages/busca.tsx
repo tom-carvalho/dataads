@@ -10,7 +10,6 @@ import { Select } from "@chakra-ui/react"
 import { Card } from "../components/card"
 import Head from 'next/head'
 import axios from "axios"
-import save from 'save-file'
 import { GetServerSideProps, GetServerSidePropsContext } from "next"
 import { parseCookies } from "nookies"
 
@@ -47,6 +46,7 @@ export default function SearchPage (){
     const [anunciante, setAnunciante] = useState("")
     const [agencia, setAgencia] = useState("")
     const [marca, setMarca] = useState("")
+    const [contato, setContato] = useState("")
     const [setor, setSetor] = useState("")
     const [searchResult, setSearchResult] = useState<CardData[]>([])
 
@@ -119,6 +119,7 @@ export default function SearchPage (){
         setAgencia("")
         setMarca("")
         setSetor("")
+        setContato("")
     }
 
     const createSearchQuery = () => {
@@ -140,6 +141,10 @@ export default function SearchPage (){
                 name: "SETOR",
                 value: setor
             },
+            {
+                name: "CONTATO",
+                value: contato,
+            }
         ]
 
         const validFields = fields.filter(field => field.value.length > 1)
@@ -244,6 +249,18 @@ export default function SearchPage (){
                 <Flex mt="-112px" padding="24px" w="100%" justifyContent="center">
                     <SimpleGrid w="70%" bg="white" borderRadius="lg" padding="32px" boxShadow="lg" columns={{ xl: 2, lg: 2, md: 2, sm: 1, base: 1 }} gap="32px">
                         <Flex flexDirection="column">
+                            <FormLabel>Nome do Contato</FormLabel>
+                            <Input
+                                placeholder="Pesquise por um contato"
+                                size="lg"
+                                type="Text"
+                                mb="16px"
+                                focusBorderColor="yellow.400"
+                                value={contato}
+                                onChange={(e) => setContato(e.target.value)}
+                            />
+                        </Flex>
+                        <Flex flexDirection="column">
                             <FormLabel>Anunciante</FormLabel>
                             <Input
                                 placeholder="Pesquise por um anunciante"
@@ -279,18 +296,6 @@ export default function SearchPage (){
                                 onChange={(e) => setMarca(e.target.value)}
                             />
                         </Flex>
-                        {/* <Flex flexDirection="column">
-                            <FormLabel>Setor</FormLabel>
-                            <Input
-                                placeholder="Pesquise por um setor"
-                                size="lg"
-                                type="Text"
-                                mb="16px"
-                                focusBorderColor="yellow.400"
-                                value={setor}
-                                onChange={(e) => setSetor(e.target.value)}
-                            />
-                        </Flex> */}
                         <Flex flexDirection="column">
                             <FormLabel>Setor</FormLabel>
                             <Select placeholder="Selecionar Setor"
@@ -308,8 +313,6 @@ export default function SearchPage (){
                                 <option value="Governo">Governo</option>
                             </Select>
                         </Flex>
-
-
                     </SimpleGrid>
 
                 </Flex>
