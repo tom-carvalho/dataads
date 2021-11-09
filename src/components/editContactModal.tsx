@@ -1,106 +1,94 @@
-import { Button } from "@chakra-ui/button"
-import { FormLabel } from "@chakra-ui/form-control"
-import { Image } from "@chakra-ui/image"
-import { Input } from "@chakra-ui/input"
-import { Divider, Flex, Heading, Link, SimpleGrid, Stack } from "@chakra-ui/layout"
-import { useToast } from "@chakra-ui/toast"
-import axios from "axios"
-import { Formik, Field, FieldProps, Form } from "formik"
-import { GetServerSideProps, GetServerSidePropsContext } from "next"
-import { parseCookies } from "nookies"
-import Head from 'next/head'
-import { Select } from "@chakra-ui/select"
+import { Button } from "@chakra-ui/button";
+import { FormLabel } from "@chakra-ui/form-control";
+import { Input } from "@chakra-ui/input";
+import { Flex, SimpleGrid,  } from "@chakra-ui/layout";
+import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, } from "@chakra-ui/modal";
+import { useToast } from "@chakra-ui/toast";
+import axios from "axios";
+import { Field, FieldProps, Form, Formik } from "formik";
+import { CardData } from "../pages/busca";
+interface EditContactModalProps {
+  contact: CardData | null
+  isOpen: boolean
+  onClose: () => void
+}
 
 interface IForm{
-    NOME: string
-    CATEGORIA: string
-    AGENCIA: string
-    ANUNCIANTE: string
-    MARCA: string
-    SETOR: string
-    SEGMENTO: string
-    CONTATO: string
-    DEPARTAMENTO: string
-    CARGO: string
-    FUNCAO: string
-    EMAIL: string
-    TELEFONE: string
-    CELULAR: string
-    WHATSAPP: string
-    CIDADE: string
-    ESTADO: string
-    LINKEDIN: string
-    TWITTER: string
-    FACEBOOK: string
-    INSTAGRAM: string
-    ANIVERSARIO: string
-    REFOBSERVACOES: string
+  NOME: string
+  CATEGORIA: string
+  AGENCIA: string
+  ANUNCIANTE: string
+  MARCA: string
+  SETOR: string
+  SEGMENTO: string
+  CONTATO: string
+  DEPARTAMENTO: string
+  CARGO: string
+  FUNCAO: string
+  EMAIL: string
+  TELEFONE: string
+  CELULAR: string
+  WHATSAPP: string
+  CIDADE: string
+  ESTADO: string
+  LINKEDIN: string
+  TWITTER: string
+  FACEBOOK: string
+  INSTAGRAM: string
+  ANIVERSARIO: string
+  REFOBSERVACOES: string
 }
 
 
 
-export default function BdCadastro() {
-    const toast = useToast()
+export function EditContactModal({contact, isOpen, onClose,}: EditContactModalProps) {
+  const formValues: IForm = {
+    NOME: contact?.CONTATO || "",
+    CATEGORIA: contact?.CATEGORIA || "",
+    AGENCIA: contact?.AGENCIA || "",
+    ANUNCIANTE: contact?.ANUNCIANTE || "",
+    MARCA: contact?.MARCA || "",
+    SETOR: contact?.SETOR || "",
+    SEGMENTO: contact?.SEGMENTO || "",
+    CONTATO: contact?.CONTATO || "",
+    DEPARTAMENTO: contact?.DEPARTAMENTO || "",
+    CARGO: contact?.CARGO || "",
+    FUNCAO: contact?.FUNCAO || "",
+    EMAIL: contact?.EMAIL || "",
+    TELEFONE: contact?.TELEFONE || "",
+    CELULAR: contact?.CELULAR || "",
+    WHATSAPP: contact?.WHATSAPP || "",
+    CIDADE: contact?.CIDADE || "",
+    ESTADO: contact?.ESTADO || "",
+    LINKEDIN: contact?.LINKEDIN || "",
+    TWITTER: contact?.TWITTER || "",
+    FACEBOOK: contact?.FACEBOOK || "",
+    INSTAGRAM: contact?.INSTAGRAM || "",
+    ANIVERSARIO: contact?.ANIVERSARIO || "",
+    REFOBSERVACOES: contact?.REFOBSERVACOES || "",
+  }
 
-    const formValues: IForm = {
-        NOME: "",
-        CATEGORIA: "",
-        AGENCIA: "",
-        ANUNCIANTE: "",
-        MARCA: "",
-        SETOR: "",
-        SEGMENTO: "",
-        CONTATO: "",
-        DEPARTAMENTO: "",
-        CARGO: "",
-        FUNCAO: "",
-        EMAIL: "",
-        TELEFONE: "",
-        CELULAR: "",
-        WHATSAPP: "",
-        CIDADE: "",
-        ESTADO: "",
-        LINKEDIN: "",
-        TWITTER: "",
-        FACEBOOK: "",
-        INSTAGRAM: "",
-        ANIVERSARIO: "",
-        REFOBSERVACOES: "",
-    }
+  // useEffect(() => {
+  //   if(contact) {
+  //     setContactData(contact)
+  //   }
+  // }, [])
 
-    return (
-        <>
-            <Head>
-                <title>Cadastro no banco de dados</title>
-            </Head>
-            <Flex
-            as="main"
-            width="100%"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-        >
-            <Flex bg="gray.700" justifyContent="center" width="100%">
-                <Flex as={Link} href="/busca" flexDirection="column" alignItems="center">
-                    <Image src="/images/Logo-negative.png" w="230px" alt="Logo DataAds" m="40px" />
+  const toast = useToast()
 
-                </Flex>
-            </Flex>
-            <Flex p="24px">
-                <Stack>
-                    <Heading size="lg" color="gray.500">Cadastro Base de Dados</Heading>
-                </Stack>
-            </Flex>
-            <Flex alignContent="center" mb="32px">
-                <Divider colorScheme="gray.300" w="648px" h="1px" orientation="horizontal" />
-            </Flex>
-
-            <Formik
+  return (
+    <Drawer placement="right" isOpen={isOpen} onClose={onClose} size="lg" >
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerHeader>Editar Contato</DrawerHeader>
+        <DrawerCloseButton/>
+      <DrawerBody scr>
+      <Formik
                 initialValues={formValues}
                 onSubmit={async(values, actions) => {
-                    console.log(values)
-                    await axios.post(
-                        `/api/contacts`,
+                    console.log(contact)
+                    await axios.put(
+                        `/api/contacts?_id=${contact?._id}`,
                         {
                             ...values,
                             ["E-MAIL"]: values.EMAIL,
@@ -109,6 +97,7 @@ export default function BdCadastro() {
                     )
 
                     actions.resetForm()
+                    onClose()
                     toast({
                         title: "Sucesso",
                         description: "Dados do anunciante salvos com sucesso",
@@ -120,14 +109,14 @@ export default function BdCadastro() {
                 }}
             >
                 {() => (
-                    <Flex as={Form} flexDirection="column" w="648px">
+                    <Flex as={Form} flexDirection="column">
                         <Flex flexDirection="column">
-                            <SimpleGrid columns={2} columnGap="24px">
+                    <SimpleGrid columns={2} columnGap="24px" paddingBottom="180px">
                             <Field name="CONTATO" flex={1}>
                             {({ field }: FieldProps) => (
                                 <Flex flexDirection="column" w="100%">
                                     <FormLabel>Nome</FormLabel>
-                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                 </Flex>
                             )}
                         </Field>
@@ -135,7 +124,7 @@ export default function BdCadastro() {
                                     {({ field}: FieldProps) => (
                                     <Flex flexDirection="column">
                                     <FormLabel>Cargo</FormLabel>
-                                    <Input {...field} size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                 </Flex>
                             )}
                                 </Field>
@@ -143,7 +132,7 @@ export default function BdCadastro() {
                                 {({ field}: FieldProps) => (
                                     <Flex flexDirection="column">
                                     <FormLabel>Função</FormLabel>
-                                    <Input {...field} size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                    <Input {...field} size="lg" type="Text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                 </Flex>
                             )}
                                 </Field>
@@ -152,7 +141,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>E-mail</FormLabel>
-                                            <Input {...field} size="lg" type="email" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="email" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -160,7 +149,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Telefone</FormLabel>
-                                            <Input {...field} size="lg" type="phone" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="phone" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -168,7 +157,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Celular</FormLabel>
-                                            <Input {...field} size="lg" type="phone" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="phone" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -176,7 +165,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>WhatsApp</FormLabel>
-                                            <Input {...field} size="lg" type="phone" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="phone" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -184,7 +173,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Cidade</FormLabel>
-                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -192,7 +181,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Estado</FormLabel>
-                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -200,7 +189,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Categoria</FormLabel>
-                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -208,7 +197,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Agência</FormLabel>
-                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -216,7 +205,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Anunciante</FormLabel>
-                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -224,7 +213,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Marca</FormLabel>
-                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -232,7 +221,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Setor</FormLabel>
-                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -240,19 +229,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Segmento</FormLabel>
-                                            <Select placeholder="Selecionar Setor"
-                                                {...field}
-                                                size="lg"
-                                                focusBorderColor="yellow.400"
-                                            >
-                                                <option value="Bens de Consumo">Bens de Consumo</option>
-                                                <option value="Serviços">Serviços</option>
-                                                <option value="Telecom/Tecnologia/Streaming">Telecom/Tecnologia/Streaming</option>
-                                                <option value="Comércio/Varejo">Comércio/Varejo</option>
-                                                <option value="Finanças">Finanças (financeiro)</option>
-                                                <option value="Autos">Autos</option>
-                                                <option value="Governo">Governo</option>
-                                            </Select>
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -260,7 +237,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Departamento</FormLabel>
-                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -268,7 +245,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Linkedin</FormLabel>
-                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -276,7 +253,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Twitter</FormLabel>
-                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -284,7 +261,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Facebook</FormLabel>
-                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -292,7 +269,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Instagram</FormLabel>
-                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -300,7 +277,7 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Aniversário</FormLabel>
-                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
@@ -308,47 +285,39 @@ export default function BdCadastro() {
                                     {({ field }: FieldProps) => (
                                         <Flex flexDirection="column">
                                             <FormLabel>Ref/ Observações</FormLabel>
-                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="312px" />
+                                            <Input {...field} size="lg" type="text" mb="24px" focusBorderColor="yellow.400" w="100%" />
                                         </Flex>
                                     )}
                                 </Field>
-                            </SimpleGrid>
-                                <Flex justifyContent="flex-end" pb="40px" mt="30px">
-                                    <Button backgroundColor="gray.700"
-                                        type="submit"
-                                        color="yellow.400"
-                                        size="lg"
-                                        _hover={{
-                                            backgroundColor: "gray.800"
-                                        }}
-                                        transition="background-color 0.5s"
-                                    >Salvar no banco de dados</Button>
-                                </Flex>
-                        </Flex>
+
+                    </SimpleGrid>
+                    <Flex position="absolute"  bottom={0} right={0} padding="10px" bgColor="white" w="100%">
+                      <Flex justifyContent="flex-end" pb="40px" mt="30px" w="100%">
+                        <Button backgroundColor="gray.700"
+                            type="submit"
+                            color="yellow.400"
+                            size="lg"
+                            _hover={{
+                                backgroundColor: "gray.800"
+                            }}
+                            transition="background-color 0.5s"
+                        >Salvar</Button>
+                      </Flex>
+                      <Flex justifyContent="flex-end" pb="40px" mt="30px">
+                        <Button vcolor="yellow.400"
+                          size="lg"
+                          _hover={{
+                              backgroundColor: "gray.300"
+                          }}
+                          transition="background-color 0.5s" onClick={onClose} ml="24px">Cancelar</Button>
+                      </Flex>
                     </Flex>
+                  </Flex>
+                </Flex>
                 )}
             </Formik>
-
-
-        </Flex>
-    </>
-    )
-}
-
-export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-    const { dataChainToken: token } = parseCookies(context)
-
-    if (!token) {
-        return {
-          redirect: {
-            destination: '/',
-            permanent: false,
-          },
-        }
-      }
-    
-      return {
-        props: {},
-      }
-
+      </DrawerBody>
+      </DrawerContent>
+    </Drawer>
+  )
 }

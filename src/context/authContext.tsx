@@ -33,51 +33,30 @@ export function AuthProvider({ children }: ComponentDefaultProps) {
   const toast = useToast()
 
   async function signIn({ email, password }: SignInData) {
-      const response = await axios.get(`/api/login?E-MAIL=${email.replace("@", "%40")}&SENHA=${password}`)
-      if (response.data.length) {
-        setCookie(undefined, 'dataChainToken', response.data[0]["E-MAIL"], {
-          maxAge: 60 * 30,
+    try {
+      const response = await axios.post(`/api/login`, {
+        ["E-MAIL"]: email,
+        SENHA: password
+      })
+        setCookie(undefined, 'dataChainToken', response.data.token, {
+          maxAge: 60 * 60 * 12,
         })
-        api.defaults.headers.Authorization = `Bearer ${response.data[0]["E-MAIL"]}`
-
-        setUser({
-          email: response.data[0]["E-MAIL"],
-          name: response.data[0].NOME
-        })
+        api.defaults.headers.Authorization = `Bearer ${response.data.token}`
   
         Router.push('/busca')
-      } else {
-        toast({
-                title: 'Algo seu errado',
-                description:
-                  'Usuário ou senha inválidos, cheque suas credenciais e tente novamente',
-                status: 'error',
-                position: 'top-right',
-                isClosable: true,
-              })
-      }
 
-      // .catch(error => {
-      //   if (error.response.status === 401) {
-      //     toast({
-      //       title: 'Algo seu errado',
-      //       description:
-      //         'Usuário ou senha inválidos, cheque suas credenciais e tente novamente',
-      //       status: 'error',
-      //       position: 'top-right',
-      //       isClosable: true,
-      //     })
-      //   } else {
-      //     toast({
-      //       title: 'Algo seu errado',
-      //       description:
-      //         'Ocorreu um erro inesperado, tente novamente mais tarde.',
-      //       status: 'error',
-      //       position: 'top-right',
-      //       isClosable: true,
-      //     })
-      //   }
-      // })
+    } catch(error) {
+      toast({
+        title: 'Algo seu errado',
+        description:
+          'Usuário ou senha inválidos, cheque suas credenciais e tente novamente',
+        status: 'error',
+        position: 'top-right',
+        isClosable: true,
+      })
+    }
+      
+
   }
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, signIn, setUser }}>

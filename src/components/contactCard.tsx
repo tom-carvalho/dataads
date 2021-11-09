@@ -1,3 +1,5 @@
+import { Button } from "@chakra-ui/button"
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons"
 import { Divider, Flex, Spacer, Stack, Text } from "@chakra-ui/layout"
 
 interface CardData {
@@ -24,10 +26,12 @@ interface CardData {
 
 interface CardProps {
     data: CardData
+    onClickDelete: () => void
+    onClickEdit: () => void
 }
 
 
-export const Card = ({ data }: CardProps) => {
+export function ContactCard({ data, onClickDelete, onClickEdit }: CardProps) {
     return (
 
         <Flex
@@ -41,6 +45,16 @@ export const Card = ({ data }: CardProps) => {
 
 
         >
+            <Flex justifyContent="flex-end" alignItems="center" w="100%" >
+                <Flex as={Button} padding="10px" variant="none" onClick={onClickEdit}>
+                    <EditIcon w={6} h={6} color="grey" />
+                </Flex>
+                <Flex as={Button} padding="10px" variant="none" onClick={onClickDelete}>
+                    <DeleteIcon w={6} h={6} color="red" _hover={{
+                        color: "red.600"
+                    }}/>
+                </Flex>
+            </Flex>
 
             <Stack spacing={1}>
                 <Text overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" fontSize="2xl" textAlign="left" color="gray.500" >{data.CONTATO}</Text>

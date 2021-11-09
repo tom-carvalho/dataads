@@ -1,4 +1,3 @@
-
 import { Button } from "@chakra-ui/button"
 import { FormLabel } from "@chakra-ui/form-control"
 import { Image } from "@chakra-ui/image"
@@ -7,14 +6,16 @@ import { Flex, SimpleGrid, Text } from "@chakra-ui/layout"
 import { useToast } from "@chakra-ui/toast"
 import { Fragment, useCallback, useEffect, useState } from "react"
 import { Select } from "@chakra-ui/react"
-import { Card } from "../components/card"
+import { ContactCard } from "../components/contactCard"
 import Head from 'next/head'
 import axios from "axios"
 import { GetServerSideProps, GetServerSidePropsContext } from "next"
 import { parseCookies } from "nookies"
+import { EditContactModal } from "../components/editContactModal"
 
 
-interface CardData {
+export interface CardData {
+    _id: string
     CATEGORIA: string,
     AGENCIA: string,
     EMPRESA: string,
@@ -36,7 +37,10 @@ interface CardData {
     FACEBOOK: string,
     INSTAGRAM: string,
     ANIVERSARIO: string,
-    OBSERVACAO: string
+    OBSERVACAO: string,
+    REFOBSERVACOES: string,
+    WHATSAPP: string
+
 }
 
 
@@ -49,6 +53,8 @@ export default function SearchPage (){
     const [contato, setContato] = useState("")
     const [setor, setSetor] = useState("")
     const [searchResult, setSearchResult] = useState<CardData[]>([])
+    const [showEditModal, setShowEditModal] = useState(false)
+    const [selectedContact, setSelectedContact] = useState<CardData | null>(null)
 
     const toast = useToast()
 
@@ -61,10 +67,11 @@ export default function SearchPage (){
         try {
             setLoading(true)
             const response = await axios.get(
-                `/api/search`,
+                `/api/contacts`,
             )
 
             const formatedResponse: CardData[] = response.data.map((i: any) => ({
+                _id: i._id["$oid"],
                 CATEGORIA: i.CATEGORIA,
                 AGENCIA: i.AGENCIA,
                 EMPRESA: i.EMPRESA,
@@ -76,7 +83,7 @@ export default function SearchPage (){
                 CARGO: i.CARGO,
                 FUNCAO: i.FUNCAO,
                 DEPARTAMENTO: i.DEPARTAMENTO,
-                EMAIL: i["E-mail"],
+                EMAIL: i["E-MAIL"],
                 TELEFONE: i.TELEFONE,
                 CELULAR: i.CELULAR,
                 CIDADE: i.CIDADE,
@@ -86,7 +93,8 @@ export default function SearchPage (){
                 FACEBOOK: i.FACEBOOK,
                 INSTAGRAM: i.INSTAGRAM,
                 ANIVERSARIO: i.ANIVERSARIO,
-                OBSERVACAO: i.OBSERVACAO
+                REFOBSERVACOES: i["REF/OBSERVACOES"],
+                WHATSAPP: i.WHATSAPP
             }))
             setSearchResult(formatedResponse);
             if (formatedResponse.length === 0) {
@@ -161,10 +169,11 @@ export default function SearchPage (){
         try {
             setLoading(true)
             const response = await axios.get(
-                `/api/search?${createSearchQuery()}`,
+                `/api/contacts?${createSearchQuery()}`,
             )
 
             const formatedResponse: CardData[] = response.data.map((i: any) => ({
+                _id: i._id["$oid"],
                 CATEGORIA: i.CATEGORIA,
                 AGENCIA: i.AGENCIA,
                 EMPRESA: i.EMPRESA,
@@ -186,7 +195,8 @@ export default function SearchPage (){
                 FACEBOOK: i.FACEBOOK,
                 INSTAGRAM: i.INSTAGRAM,
                 ANIVERSARIO: i.ANIVERSARIO,
-                OBSERVACAO: i.OBSERVACAO
+                REFOBSERVACOES: i["REF/OBSERVACOES"],
+                WHATSAPP: i.WHATSAPP
             }))
             setSearchResult(formatedResponse);
             if (formatedResponse.length === 0) {
@@ -195,7 +205,6 @@ export default function SearchPage (){
 
                 setEmptyResult(false)
             }
-            // handleClearForm()
         } catch (err) {
             toast({
                 title: "Ops, ocorreu um erro.",
@@ -211,9 +220,7 @@ export default function SearchPage (){
 
         }
 
-    }, [anunciante, agencia, marca, setor, searchResult])
-
-
+    }, [anunciante, agencia, marca, setor, contato, searchResult])
 
 
     const renderEmptyContent = () => {
@@ -349,21 +356,15 @@ export default function SearchPage (){
 
     }
 
-
-
     const handleDownload = async () => {
-
-            
-            await axios.get(`/api/search/export?${createSearchQuery()}`, { responseType: 'blob' }
+            await axios.get(`/api/contacts/export?${createSearchQuery()}`, { responseType: 'blob' }
             ).then((res) => {
-                console.log(res) 
-                var data = new File([res.data],"datachain.xlsx")
+                var data = new File([res.data],"pesquisa-datachain.xlsx")
 
                 var csvURL = window.URL.createObjectURL(data);
-                
                 var tempLink = document.createElement('a');
                     tempLink.href = csvURL;
-                    tempLink.setAttribute('download', 'datachain.xlsx');
+                    tempLink.setAttribute('download', 'pesquisa-datachain.xlsx');
                     tempLink.click();
 
             }).catch(()=>{
@@ -375,14 +376,7 @@ export default function SearchPage (){
                     position: 'bottom',
                 })
             })
-        
     }
-
-
-
-
-
-
 
     const renderLoading = () => {
         return (
@@ -391,6 +385,37 @@ export default function SearchPage (){
             </Flex>
         )
     }
+
+    async function handleDeleteContact(id: string) {
+        try {
+            await axios.delete(`/api/contacts?_id=${id}`)
+            handleSearch()
+            toast({
+                title: 'Tudo certo!',
+                description: 'Contato deletado com sucesso',
+                status: 'success',
+                isClosable: true,
+                position: 'bottom',
+            })
+        } catch(error) {
+            toast({
+                title: 'Erro',
+                description: 'Ocorreu ao deletar o contato',
+                status: 'error',
+                isClosable: true,
+                position: 'bottom',
+            })
+        }
+    }
+
+    function handleEditContact(contact: CardData){
+        console.log(contact)
+        setSelectedContact(contact)
+        setShowEditModal(true)
+
+        console.log(selectedContact)
+    }
+
 
     const renderData = () => {
         return (
@@ -402,8 +427,11 @@ export default function SearchPage (){
                     renderEmptyContent()
                 ) : (
                     <SimpleGrid columns={[1, 1, 2, 3, 3]} rowGap="32px" columnGap="32px" mb="32px" padding="32px">
-                        {searchResult.map((result) => (
-                            <Card data={result} />
+                        {searchResult.map((contact) => (
+                            <ContactCard 
+                                data={contact} 
+                                onClickDelete={() => handleDeleteContact(contact._id)} 
+                                onClickEdit={() => handleEditContact(contact)}/>
                         ))}
                     </SimpleGrid>
                 )
@@ -411,9 +439,19 @@ export default function SearchPage (){
             </Fragment>
         )
     }
+
     return (
         <Fragment>
             {renderSearch()}
+            <EditContactModal 
+                onClose={() => {
+                    setShowEditModal(false)
+                    setSelectedContact(null)
+                    handleSearch()
+                }} 
+                isOpen={showEditModal} 
+                contact={selectedContact} 
+            />
             <Flex justifyContent="center" alignItems="center" w="100%" mt="24px">
                 {loading ? renderLoading() : renderData()}
             </Flex>
@@ -439,7 +477,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
           },
         }
       }
-    
       return {
         props: {},
       }
