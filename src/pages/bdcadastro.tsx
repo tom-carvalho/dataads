@@ -98,7 +98,6 @@ export default function BdCadastro() {
             <Formik
                 initialValues={formValues}
                 onSubmit={async(values, actions) => {
-                    console.log(values)
                     await axios.post(
                         `/api/contacts`,
                         {

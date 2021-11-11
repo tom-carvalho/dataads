@@ -86,7 +86,6 @@ export function EditContactModal({contact, isOpen, onClose,}: EditContactModalPr
       <Formik
                 initialValues={formValues}
                 onSubmit={async(values, actions) => {
-                    console.log(contact)
                     await axios.put(
                         `/api/contacts?_id=${contact?._id}`,
                         {

@@ -409,11 +409,8 @@ export default function SearchPage (){
     }
 
     function handleEditContact(contact: CardData){
-        console.log(contact)
         setSelectedContact(contact)
         setShowEditModal(true)
-
-        console.log(selectedContact)
     }
 
 
