@@ -22,6 +22,8 @@ interface CardData {
     ANIVERSARIO: string
     OBSERVACAO: string
     ANUNCIANTE: string
+    FUNCAO: string
+    DEPARTAMENTO:string
 }
 
 interface CardProps {
@@ -59,6 +61,10 @@ export function ContactCard({ data, onClickDelete, onClickEdit }: CardProps) {
             <Stack spacing={1}>
                 <Text overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" fontSize="2xl" textAlign="left" color="gray.500" >{data.CONTATO}</Text>
                 <Text fontSize="medium" textAlign="left" color="gray.500">{data.CARGO}</Text>
+            </Stack>
+            <Stack spacing={1}>
+                <Text overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" fontSize="2xl" textAlign="left" color="gray.500" >{data.FUNCAO}</Text>
+                <Text fontSize="medium" textAlign="left" color="gray.500">{data.DEPARTAMENTO}</Text>
             </Stack>
             <Flex alignContent="center" mt="16px" mb="16px">
                 <Divider colorScheme="gray.300" w="308px" h="1px" orientation="horizontal" />

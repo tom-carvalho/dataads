@@ -52,6 +52,8 @@ export default function SearchPage (){
     const [marca, setMarca] = useState("")
     const [contato, setContato] = useState("")
     const [setor, setSetor] = useState("")
+    const [funcao, setFuncao] = useState("")
+    const [departamento, setDepartamento] = useState("")
     const [searchResult, setSearchResult] = useState<CardData[]>([])
     const [showEditModal, setShowEditModal] = useState(false)
     const [selectedContact, setSelectedContact] = useState<CardData | null>(null)
@@ -128,6 +130,8 @@ export default function SearchPage (){
         setMarca("")
         setSetor("")
         setContato("")
+        setFuncao("")
+        setDepartamento("")
     }
 
     const createSearchQuery = () => {
@@ -152,6 +156,14 @@ export default function SearchPage (){
             {
                 name: "CONTATO",
                 value: contato,
+            },
+            {
+                name: "FUNCAO",
+                value: funcao,
+            },
+            {
+                name: "DEPARTAMENTO",
+                value: departamento,
             }
         ]
 
@@ -254,7 +266,7 @@ export default function SearchPage (){
                 </Flex>
 
                 <Flex mt="-112px" padding="24px" w="100%" justifyContent="center">
-                    <SimpleGrid w="70%" bg="white" borderRadius="lg" padding="32px" boxShadow="lg" columns={{ xl: 2, lg: 2, md: 2, sm: 1, base: 1 }} gap="32px">
+                    <SimpleGrid w="70%" bg="white" borderRadius="lg" padding="32px" boxShadow="lg" columns={{ xl: 2, lg: 2, md: 2, sm: 1, base: 1 }} gap="16px">
                         <Flex flexDirection="column">
                             <FormLabel>Nome do Contato</FormLabel>
                             <Input
@@ -318,6 +330,36 @@ export default function SearchPage (){
                                 <option value="Finanças">Finanças (financeiro)</option>
                                 <option value="Autos">Autos</option>
                                 <option value="Governo">Governo</option>
+                            </Select>
+                        </Flex>
+                        <Flex flexDirection="column">
+                            <FormLabel>Departamento</FormLabel>
+                            <Select placeholder="Selecionar Departamento"
+                                size="lg"
+                                focusBorderColor="yellow.400"
+                                value={departamento}
+                                onChange={(e) => setDepartamento(e.target.value)}
+                            >
+                                <option value="Mídia">Mídia</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Atendimento/Planejamento">Atendimento/ Planejamento</option>
+                                <option value="Criação">Criação</option>
+                                <option value="Financeiro">Financeiro</option>
+                                <option value="Corporativo">Corporativo</option>
+                            </Select>
+                        </Flex><Flex flexDirection="column">
+                            <FormLabel>Função</FormLabel>
+                            <Select placeholder="Selecionar Função"
+                                size="lg"
+                                focusBorderColor="yellow.400"
+                                value={funcao}
+                                onChange={(e) => setFuncao(e.target.value)}
+                            >
+                                <option value="Analista/Assistente">Analista/Assistente</option>
+                                <option value="Gerente/Supervisor/Coordenador">Gerente/ Supervisor/ Coordenador</option>
+                                <option value="Diretor/VP">Diretor/VP</option>
+                                <option value="C Level">C Level</option>
+                                
                             </Select>
                         </Flex>
                     </SimpleGrid>
