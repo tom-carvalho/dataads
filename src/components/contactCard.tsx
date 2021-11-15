@@ -62,14 +62,22 @@ export function ContactCard({ data, onClickDelete, onClickEdit }: CardProps) {
                 <Text overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" fontSize="2xl" textAlign="left" color="gray.500" >{data.CONTATO}</Text>
                 <Text fontSize="medium" textAlign="left" color="gray.500">{data.CARGO}</Text>
             </Stack>
-            <Stack spacing={1}>
-                <Text overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" fontSize="2xl" textAlign="left" color="gray.500" >{data.FUNCAO}</Text>
-                <Text fontSize="medium" textAlign="left" color="gray.500">{data.DEPARTAMENTO}</Text>
-            </Stack>
             <Flex alignContent="center" mt="16px" mb="16px">
                 <Divider colorScheme="gray.300" w="308px" h="1px" orientation="horizontal" />
             </Flex>
             <Flex>
+                <Stack spacing={1}>
+                    <Text fontSize="x-small" fontWeight="bold" textAlign="left" color="gray.500">Função</Text>
+                    <Text fontSize="medium" textAlign="left" color="gray.500">{data.FUNCAO || "-"}</Text>
+                </Stack>
+            </Flex>
+            <Flex mt="16px">
+                <Stack spacing={1}>
+                    <Text fontSize="x-small" fontWeight="bold" textAlign="left" color="gray.500">Departamento</Text>
+                    <Text fontSize="medium" textAlign="left" color="gray.500">{data.DEPARTAMENTO || "-"}</Text>
+                </Stack>
+            </Flex>
+            <Flex mt="16px">
                 <Stack spacing={1}>
                     <Text fontSize="x-small" fontWeight="bold" textAlign="left" color="gray.500">Agência</Text>
                     <Text fontSize="medium" textAlign="left" color="gray.500">{data.AGENCIA}</Text>
