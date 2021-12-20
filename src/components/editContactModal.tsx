@@ -90,8 +90,8 @@ export function EditContactModal({contact, isOpen, onClose,}: EditContactModalPr
                         `/api/contacts?_id=${contact?._id}`,
                         {
                             ...values,
-                            ["E-MAIL"]: values.EMAIL,
-                            ["REF/OBSERVACOES"]: values.REFOBSERVACOES
+                            EMAIL: values.EMAIL,
+                            REFOBSERVACOES: values.REFOBSERVACOES
                         }
                     )
 

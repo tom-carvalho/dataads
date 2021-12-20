@@ -35,7 +35,7 @@ export function AuthProvider({ children }: ComponentDefaultProps) {
   async function signIn({ email, password }: SignInData) {
     try {
       const response = await axios.post(`/api/login`, {
-        ["E-MAIL"]: email,
+        EMAIL: email,
         SENHA: password
       })
         setCookie(undefined, 'dataChainToken', response.data.token, {

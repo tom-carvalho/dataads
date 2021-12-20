@@ -102,8 +102,8 @@ export default function BdCadastro() {
                         `/api/contacts`,
                         {
                             ...values,
-                            ["E-MAIL"]: values.EMAIL,
-                            ["REF/OBSERVACOES"]: values.REFOBSERVACOES
+                            EMAIL: values.EMAIL,
+                            REFOBSERVACOES: values.REFOBSERVACOES
                         }
                     )
 

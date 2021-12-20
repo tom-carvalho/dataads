@@ -85,7 +85,7 @@ export default function SearchPage (){
                 CARGO: i.CARGO,
                 FUNCAO: i.FUNCAO,
                 DEPARTAMENTO: i.DEPARTAMENTO,
-                EMAIL: i["E-MAIL"],
+                EMAIL: i.EMAIL,
                 TELEFONE: i.TELEFONE,
                 CELULAR: i.CELULAR,
                 CIDADE: i.CIDADE,
@@ -95,7 +95,7 @@ export default function SearchPage (){
                 FACEBOOK: i.FACEBOOK,
                 INSTAGRAM: i.INSTAGRAM,
                 ANIVERSARIO: i.ANIVERSARIO,
-                REFOBSERVACOES: i["REF/OBSERVACOES"],
+                REFOBSERVACOES: i.REFOBSERVACOES,
                 WHATSAPP: i.WHATSAPP
             }))
             setSearchResult(formatedResponse);
@@ -197,7 +197,7 @@ export default function SearchPage (){
                 CARGO: i.CARGO,
                 FUNCAO: i.FUNCAO,
                 DEPARTAMENTO: i.DEPARTAMENTO,
-                EMAIL: i["E-MAIL"],
+                EMAIL: i.EMAIL,
                 TELEFONE: i.TELEFONE,
                 CELULAR: i.CELULAR,
                 CIDADE: i.CIDADE,
@@ -207,7 +207,7 @@ export default function SearchPage (){
                 FACEBOOK: i.FACEBOOK,
                 INSTAGRAM: i.INSTAGRAM,
                 ANIVERSARIO: i.ANIVERSARIO,
-                REFOBSERVACOES: i["REF/OBSERVACOES"],
+                REFOBSERVACOES: i.EMAIL,
                 WHATSAPP: i.WHATSAPP
             }))
             setSearchResult(formatedResponse);
